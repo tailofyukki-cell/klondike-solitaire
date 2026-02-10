@@ -149,9 +149,10 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 8px;
+    padding: 6px;
     user-select: none;
     transition: transform 0.1s;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -191,39 +192,41 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
     flex: 1;
+    overflow: hidden;
+    max-height: 80px;
 }
 
 .card-suit-large {
-    font-size: 48px;
+    font-size: 36px;
 }
 
 .suit-row {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     justify-content: center;
 }
 
 .suit-grid-2 {
     display: flex;
-    gap: 8px;
+    gap: 5px;
     justify-content: center;
 }
 
 .suit-grid-3 {
     display: flex;
-    gap: 5px;
+    gap: 3px;
     justify-content: center;
 }
 
 .card-face {
-    font-size: 48px;
+    font-size: 36px;
     font-weight: bold;
 }
 
 .card-center .card-suit {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .card.red {
