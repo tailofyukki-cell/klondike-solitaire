@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+h1 {
+    color: white;
+    font-size: 28px;
+    margin: 0;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    color: white;
+}
+
+.stat {
+    display: flex;
+    gap: 5px;
+}
+
+.label {
+    font-weight: 600;
+}
+
+.game-board {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.stock-waste {
+    display: flex;
+    gap: 15px;
+}
+
+.foundations {
+    display: flex;
+    gap: 15px;
+}
+
+.card-slot {
+    width: 80px;
+    height: 112px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    position: relative;
+}
+
+.stock {
+    cursor: pointer;
+}
+
+.stock:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.tableau {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.tableau-column {
+    width: 80px;
+    min-height: 112px;
+    position: relative;
+}
+
+.card {
+    width: 80px;
+    height: 112px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+    user-select: none;
+    transition: transform 0.1s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card.dragging {
+    opacity: 0.5;
+}
+
+.card.face-down {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: default;
+}
+
+.card.face-down:hover {
+    transform: none;
+}
+
+.card-top, .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-rank {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-suit {
+    font-size: 24px;
+}
+
+.card-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+}
+
+.card.red {
+    color: #dc143c;
+}
+
+.card.black {
+    color: #000;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .game-board {
+        padding: 15px;
+    }
+    
+    .top-row {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .tableau {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .card-slot, .card, .tableau-column {
+        width: 60px;
+        height: 84px;
+    }
+    
+    .card-rank {
+        font-size: 14px;
+    }
+    
+    .card-suit {
+        font-size: 18px;
+    }
+    
+    .card-center {
+        font-size: 24px;
+    }
+}

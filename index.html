@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klondike Solitaire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🃏 Klondike Solitaire</h1>
+            <div class="controls">
+                <button id="newGame" class="btn">New Game</button>
+                <button id="undo" class="btn">Undo</button>
+                <button id="settings" class="btn">Settings</button>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <span class="label">Time:</span>
+                    <span id="timer">0:00</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Moves:</span>
+                    <span id="moves">0</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-board">
+            <!-- Top row: Stock, Waste, and Foundations -->
+            <div class="top-row">
+                <div class="stock-waste">
+                    <div id="stock" class="card-slot stock"></div>
+                    <div id="waste" class="card-slot waste"></div>
+                </div>
+                <div class="foundations">
+                    <div id="foundation-0" class="card-slot foundation" data-suit="hearts"></div>
+                    <div id="foundation-1" class="card-slot foundation" data-suit="diamonds"></div>
+                    <div id="foundation-2" class="card-slot foundation" data-suit="clubs"></div>
+                    <div id="foundation-3" class="card-slot foundation" data-suit="spades"></div>
+                </div>
+            </div>
+
+            <!-- Tableau (7 columns) -->
+            <div class="tableau">
+                <div id="tableau-0" class="tableau-column"></div>
+                <div id="tableau-1" class="tableau-column"></div>
+                <div id="tableau-2" class="tableau-column"></div>
+                <div id="tableau-3" class="tableau-column"></div>
+                <div id="tableau-4" class="tableau-column"></div>
+                <div id="tableau-5" class="tableau-column"></div>
+                <div id="tableau-6" class="tableau-column"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <h2>Settings</h2>
+            <label>
+                <input type="radio" name="drawCount" value="1" checked> Draw 1 card
+            </label>
+            <label>
+                <input type="radio" name="drawCount" value="3"> Draw 3 cards
+            </label>
+            <button id="closeSettings" class="btn">Close</button>
+        </div>
+    </div>
+
+    <!-- Win Modal -->
+    <div id="winModal" class="modal">
+        <div class="modal-content">
+            <h2>🎉 Congratulations!</h2>
+            <p>You won the game!</p>
+            <p id="winStats"></p>
+            <button id="newGameWin" class="btn">New Game</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
