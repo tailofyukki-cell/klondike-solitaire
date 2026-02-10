@@ -275,7 +275,7 @@ function render() {
         
         gameState.tableau[col].forEach((card, index) => {
             const cardEl = createCardElement(card, card.faceUp);
-            cardEl.style.top = `${index * 25}px`;
+            cardEl.style.top = `${index * 20}px`;
             cardEl.dataset.source = 'tableau';
             cardEl.dataset.column = col;
             cardEl.dataset.index = index;
@@ -297,26 +297,45 @@ function createCardElement(card, faceUp) {
     if (faceUp) {
         // Display rank properly (A, 2-10, J, Q, K)
         let displayRank = card.rank;
+        
+        // Generate suit symbols based on rank
+        let centerContent = '';
+        const symbol = suitSymbols[card.suit];
+        
         if (card.rank === 'A') {
-            displayRank = 'A';
-        } else if (card.rank === 'J') {
-            displayRank = 'J';
-        } else if (card.rank === 'Q') {
-            displayRank = 'Q';
-        } else if (card.rank === 'K') {
-            displayRank = 'K';
+            centerContent = `<span class="card-suit-large">${symbol}</span>`;
+        } else if (card.rank === '2') {
+            centerContent = `<span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span>`;
+        } else if (card.rank === '3') {
+            centerContent = `<span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span>`;
+        } else if (card.rank === '4') {
+            centerContent = `<div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === '5') {
+            centerContent = `<div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><span class="card-suit">${symbol}</span><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === '6') {
+            centerContent = `<div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === '7') {
+            centerContent = `<div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><span class="card-suit">${symbol}</span><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === '8') {
+            centerContent = `<div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-row"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === '9') {
+            centerContent = `<div class="suit-grid-3"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-grid-3"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-grid-3"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === '10') {
+            centerContent = `<div class="suit-grid-2"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-grid-2"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-grid-2"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-grid-2"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div><div class="suit-grid-2"><span class="card-suit">${symbol}</span><span class="card-suit">${symbol}</span></div>`;
+        } else if (card.rank === 'J' || card.rank === 'Q' || card.rank === 'K') {
+            centerContent = `<span class="card-face">${displayRank}</span>`;
         }
         
         cardEl.innerHTML = `
             <div class="card-top">
                 <span class="card-rank">${displayRank}</span>
-                <span class="card-suit">${suitSymbols[card.suit]}</span>
+                <span class="card-suit">${symbol}</span>
             </div>
             <div class="card-center">
-                <span class="card-suit">${suitSymbols[card.suit]}</span>
+                ${centerContent}
             </div>
             <div class="card-bottom">
-                <span class="card-suit">${suitSymbols[card.suit]}</span>
+                <span class="card-suit">${symbol}</span>
                 <span class="card-rank">${displayRank}</span>
             </div>
         `;
