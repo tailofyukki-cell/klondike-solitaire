@@ -295,9 +295,21 @@ function createCardElement(card, faceUp) {
     cardEl.className = `card ${card.color}`;
     
     if (faceUp) {
+        // Display rank properly (A, 2-10, J, Q, K)
+        let displayRank = card.rank;
+        if (card.rank === 'A') {
+            displayRank = 'A';
+        } else if (card.rank === 'J') {
+            displayRank = 'J';
+        } else if (card.rank === 'Q') {
+            displayRank = 'Q';
+        } else if (card.rank === 'K') {
+            displayRank = 'K';
+        }
+        
         cardEl.innerHTML = `
             <div class="card-top">
-                <span class="card-rank">${card.rank}</span>
+                <span class="card-rank">${displayRank}</span>
                 <span class="card-suit">${suitSymbols[card.suit]}</span>
             </div>
             <div class="card-center">
@@ -305,7 +317,7 @@ function createCardElement(card, faceUp) {
             </div>
             <div class="card-bottom">
                 <span class="card-suit">${suitSymbols[card.suit]}</span>
-                <span class="card-rank">${card.rank}</span>
+                <span class="card-rank">${displayRank}</span>
             </div>
         `;
         
