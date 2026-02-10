@@ -8,7 +8,8 @@ let gameState = {
     moves: 0,
     timer: 0,
     timerInterval: null,
-    history: []
+    history: [],
+    points: 0
 };
 
 // Card suits and ranks
@@ -220,6 +221,10 @@ function checkWin() {
     const totalCards = gameState.foundations.reduce((sum, foundation) => sum + foundation.length, 0);
     if (totalCards === 52) {
         clearInterval(gameState.timerInterval);
+        // Award 100 points for winning
+        gameState.points += 100;
+        updatePoints();
+        savePoints();
         showWinModal();
     }
 }
@@ -232,6 +237,100 @@ function showWinModal() {
     const seconds = gameState.timer % 60;
     stats.textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')} | Moves: ${gameState.moves}`;
     modal.classList.add('show');
+}
+
+// Update points display
+function updatePoints() {
+    document.getElementById('points').textContent = gameState.points;
+}
+
+// Save points to localStorage
+function savePoints() {
+    localStorage.setItem('solitaire-points', gameState.points.toString());
+}
+
+// Load points from localStorage
+function loadPoints() {
+    const savedPoints = localStorage.getItem('solitaire-points');
+    if (savedPoints) {
+        gameState.points = parseInt(savedPoints);
+        updatePoints();
+    }
+}
+
+// Hint function - automatically move one card
+function useHint() {
+    if (gameState.points < 50) {
+        alert('Not enough points! You need 50 points to use a hint.');
+        return;
+    }
+    
+    // Try to find a valid move
+    let moveFound = false;
+    
+    // First, try to move from waste to foundation
+    if (gameState.waste.length > 0) {
+        const card = gameState.waste[gameState.waste.length - 1];
+        for (let i = 0; i < 4; i++) {
+            const foundationEl = document.getElementById(`foundation-${i}`);
+            if (isValidMove(card, foundationEl, 'foundation')) {
+                const wasteEl = document.getElementById('waste');
+                moveCard([card], wasteEl, 'waste', foundationEl, 'foundation');
+                moveFound = true;
+                break;
+            }
+        }
+    }
+    
+    // If no move from waste, try tableau to foundation
+    if (!moveFound) {
+        for (let col = 0; col < 7; col++) {
+            if (gameState.tableau[col].length === 0) continue;
+            const card = gameState.tableau[col][gameState.tableau[col].length - 1];
+            if (!card.faceUp) continue;
+            
+            for (let i = 0; i < 4; i++) {
+                const foundationEl = document.getElementById(`foundation-${i}`);
+                if (isValidMove(card, foundationEl, 'foundation')) {
+                    const tableauEl = document.getElementById(`tableau-${col}`);
+                    moveCard([card], tableauEl, 'tableau', foundationEl, 'foundation');
+                    moveFound = true;
+                    break;
+                }
+            }
+            if (moveFound) break;
+        }
+    }
+    
+    // If no move to foundation, try tableau to tableau
+    if (!moveFound) {
+        for (let col = 0; col < 7; col++) {
+            if (gameState.tableau[col].length === 0) continue;
+            const card = gameState.tableau[col][gameState.tableau[col].length - 1];
+            if (!card.faceUp) continue;
+            
+            for (let targetCol = 0; targetCol < 7; targetCol++) {
+                if (col === targetCol) continue;
+                const targetEl = document.getElementById(`tableau-${targetCol}`);
+                if (isValidMove(card, targetEl, 'tableau')) {
+                    const sourceEl = document.getElementById(`tableau-${col}`);
+                    moveCard([card], sourceEl, 'tableau', targetEl, 'tableau');
+                    moveFound = true;
+                    break;
+                }
+            }
+            if (moveFound) break;
+        }
+    }
+    
+    if (moveFound) {
+        // Deduct 50 points
+        gameState.points -= 50;
+        updatePoints();
+        savePoints();
+    } else {
+        alert('No valid moves found! Try drawing from the stock.');
+    }
 }
 
 // Render game
@@ -398,6 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Buttons
     document.getElementById('newGame').addEventListener('click', initGame);
     document.getElementById('undo').addEventListener('click', undo);
+    document.getElementById('hint').addEventListener('click', useHint);
     document.getElementById('settings').addEventListener('click', () => {
         document.getElementById('settingsModal').classList.add('show');
     });
@@ -409,6 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('winModal').classList.remove('show');
         initGame();
     });
+    
+    // Load points
+    loadPoints();
     
     // Initialize game
     initGame();

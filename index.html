@@ -13,6 +13,7 @@
             <div class="controls">
                 <button id="newGame" class="btn">New Game</button>
                 <button id="undo" class="btn">Undo</button>
+                <button id="hint" class="btn btn-hint">Hint (50pts)</button>
                 <button id="settings" class="btn">Settings</button>
             </div>
             <div class="stats">
@@ -23,6 +24,10 @@
                 <div class="stat">
                     <span class="label">Moves:</span>
                     <span id="moves">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Points:</span>
+                    <span id="points">0</span>
                 </div>
             </div>
         </header>
@@ -75,6 +80,7 @@
             <h2>🎉 Congratulations!</h2>
             <p>You won the game!</p>
             <p id="winStats"></p>
+            <p class="points-reward">+100 Points!</p>
             <button id="newGameWin" class="btn">New Game</button>
         </div>
     </div>

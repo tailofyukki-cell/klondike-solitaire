@@ -60,6 +60,17 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.btn-hint {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-hint:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: white;
+}
+
 .stats {
     display: flex;
     gap: 20px;
@@ -73,6 +84,14 @@ h1 {
 
 .label {
     font-weight: 600;
+}
+
+.points-reward {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    margin: 10px 0;
 }
 
 .game-board {
@@ -179,12 +198,12 @@ h1 {
 }
 
 .card-rank {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
 }
 
 .card-suit {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .card-center {
@@ -192,41 +211,46 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1px;
+    gap: 0px;
     flex: 1;
     overflow: hidden;
-    max-height: 80px;
+    max-height: 75px;
+    padding: 2px 0;
 }
 
 .card-suit-large {
-    font-size: 36px;
+    font-size: 28px;
 }
 
 .suit-row {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     justify-content: center;
+    align-items: center;
 }
 
 .suit-grid-2 {
     display: flex;
-    gap: 5px;
+    gap: 3px;
     justify-content: center;
+    align-items: center;
 }
 
 .suit-grid-3 {
     display: flex;
-    gap: 3px;
+    gap: 2px;
     justify-content: center;
+    align-items: center;
 }
 
 .card-face {
-    font-size: 36px;
+    font-size: 28px;
     font-weight: bold;
 }
 
 .card-center .card-suit {
-    font-size: 12px;
+    font-size: 10px;
+    line-height: 1;
 }
 
 .card.red {
